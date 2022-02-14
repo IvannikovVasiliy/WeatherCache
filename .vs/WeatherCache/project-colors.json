@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "8f6e1765-0170-40f3-bd68-d54da0b5597a": {
+      "ProjectGuid": "8f6e1765-0170-40f3-bd68-d54da0b5597a",
+      "DisplayName": "WeatherCache",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
