@@ -10,11 +10,11 @@ namespace WeatherCache.Controllers
         public async Task<ActionResult> Get([Required, FromQuery(Name = "city")] string cityName)
         {
             if (!ModelState.IsValid)
-                return BadRequest("Name of a city is not provided");
+                return BadRequest("Name of a ccity is not provided");
 
             var openWeatherClient = new OpenWeatherClient();
-
             CurrentWeatherDto currentWeatherDto = await openWeatherClient.GetWeatherAsync(cityName);
+
             return Ok(currentWeatherDto);
         }
     }
