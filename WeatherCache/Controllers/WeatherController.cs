@@ -7,13 +7,17 @@ namespace WeatherCache.Controllers
     [Route("weather")]
     public class WeatherController : Controller
     {
+        private readonly OpenWeatherClient _openWeatherClient = new OpenWeatherClient();
+        public WeatherController(OpenWeatherClient openWeatherClient)
+        {
+            _openWeatherClient = openWeatherClient;
+        }
         public async Task<ActionResult> Get([Required, FromQuery(Name = "city")] string cityName)
         {
             if (!ModelState.IsValid)
-                return BadRequest("Name of a ccity is not provided");
+                return BadRequest("Name of a city is not provided");
 
-            var openWeatherClient = new OpenWeatherClient();
-            CurrentWeatherDto currentWeatherDto = await openWeatherClient.GetWeatherAsync(cityName);
+            CurrentWeatherDto currentWeatherDto = await _openWeatherClient.GetWeatherAsync(cityName);
 
             return Ok(currentWeatherDto);
         }
