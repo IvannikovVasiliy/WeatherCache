@@ -7,7 +7,7 @@ namespace WeatherCache.Controllers
     [Route("weather")]
     public class WeatherController : Controller
     {
-        private readonly OpenWeatherClient _openWeatherClient = new OpenWeatherClient();
+        private readonly OpenWeatherClient _openWeatherClient;
         public WeatherController(OpenWeatherClient openWeatherClient)
         {
             _openWeatherClient = openWeatherClient;

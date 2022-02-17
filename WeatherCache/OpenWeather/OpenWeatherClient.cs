@@ -8,12 +8,23 @@ namespace WeatherCache.OpenWeather
         const string apiKey = "d0edb2714b11c310fcc847f5ec23e409";
         const string urlTemplate = "https://api.openweathermap.org/data/2.5/weather?q={0}&appid={1}&lang={2}";
 
+        public OpenWeatherClient()
+        {
+            _lastUpdateTime = DateTime.Now;
+        }
+        private DateTime _lastUpdateTime;
+
         private readonly Dictionary<string, CurrentWeatherDto> _cache = new Dictionary<string, CurrentWeatherDto>();
         public async ValueTask<CurrentWeatherDto> GetWeatherAsync(string cityName)
         {
             var lowerCasedCityName = cityName.ToLower();
             if (_cache.ContainsKey(lowerCasedCityName))
-                return _cache[lowerCasedCityName];
+            {
+                if (DateTime.Now.Subtract(_lastUpdateTime) < TimeSpan.FromMinutes(10))
+                    return _cache[lowerCasedCityName];
+            }
+
+            _lastUpdateTime = DateTime.Now;
 
             string currentWeatherUrl = string.Format(urlTemplate, lowerCasedCityName, apiKey, defaultLanguage);
             var httpClient = new HttpClient();
